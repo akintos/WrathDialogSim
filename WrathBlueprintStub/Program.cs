@@ -26,7 +26,6 @@ namespace Kingmaker
             {
                 Console.WriteLine(item);
             }
-
         }
     }
 }

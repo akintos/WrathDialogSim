@@ -6,15 +6,10 @@
     <ApplicationIcon />
     <OutputType>Exe</OutputType>
     <StartupObject>Kingmaker.Program</StartupObject>
-    <AssemblyName>Assembly-CSharp</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\UnityEngineStub\UnityEngineStub.csproj" />
   </ItemGroup>
 
 </Project>

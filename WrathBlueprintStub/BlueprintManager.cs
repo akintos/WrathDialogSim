@@ -1,9 +1,11 @@
 ﻿using Kingmaker.Blueprints;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,7 +15,6 @@ namespace Kingmaker
     {
         private static BlueprintManager _instance;
 
-        private readonly JsonSerializerSettings settings;
         private readonly JsonSerializer serializer;
 
         private readonly Dictionary<Guid, SimpleBlueprint> BlueprintDict = new Dictionary<Guid, SimpleBlueprint>();
@@ -32,11 +33,12 @@ namespace Kingmaker
 
         private BlueprintManager()
         {
-            settings = new JsonSerializerSettings
+            JsonSerializerSettings settings = new JsonSerializerSettings
             {
                 TypeNameHandling = TypeNameHandling.Auto,
                 TypeNameAssemblyFormatHandling = TypeNameAssemblyFormatHandling.Simple,
-                Error = IgnoreMissingTypeErrorHandler
+                Error = IgnoreMissingTypeErrorHandler,
+                SerializationBinder = new IgnoreAssemblyNameBinder(),
             };
             serializer = JsonSerializer.Create(settings);
         }
@@ -75,7 +77,11 @@ namespace Kingmaker
 
         private SimpleBlueprint DeserializeBluerpintString(string jsonString)
         {
-            return (SimpleBlueprint)JsonConvert.DeserializeObject(jsonString, settings);
+            using (var textReader = new StringReader(jsonString))
+            using (var jsonreader = new JsonTextReader(textReader))
+            {
+                return (SimpleBlueprint)serializer.Deserialize(jsonreader);
+            }
         }
 
         private void IgnoreMissingTypeErrorHandler(object sender, Newtonsoft.Json.Serialization.ErrorEventArgs args)
@@ -91,7 +97,35 @@ namespace Kingmaker
                 MissingClassNames.Add(classname);
 
                 args.ErrorContext.Handled = true;
-                // Console.WriteLine(args.ErrorContext.Error.Message);
+            }
+        }
+
+        public class IgnoreAssemblyNameBinder : ISerializationBinder
+        {
+            private readonly Dictionary<string, Type> TypeCache = new Dictionary<string, Type>();
+
+            public IgnoreAssemblyNameBinder()
+            {
+                var thisAssembly = Assembly.GetAssembly(typeof(IgnoreAssemblyNameBinder));
+                foreach (var type in thisAssembly.GetTypes())
+                {
+                    TypeCache.Add(type.FullName, type);
+                }
+            }
+
+            public Type BindToType(string assemblyName, string typeName)
+            {
+                if (TypeCache.TryGetValue(typeName, out Type type))
+                {
+                    return type;
+                }
+                return default;
+            }
+
+            public void BindToName(Type serializedType, out string assemblyName, out string typeName)
+            {
+                assemblyName = serializedType.Assembly.GetName().Name;
+                typeName = serializedType.Name;
             }
         }
     }
