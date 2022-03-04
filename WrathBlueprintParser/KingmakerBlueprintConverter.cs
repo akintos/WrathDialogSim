@@ -23,14 +23,19 @@ namespace Kingmaker
 
         private readonly Dictionary<string, BaseNode> NodeDict = new();
         private readonly List<DialogNode> DialogList = new();
-        private readonly Dictionary<string, string> UnitNameDict = new();
+        private Dictionary<string, string> EntityUnitDict = new();
 
         public KingmakerBlueprintConverter()
         {
 
         }
 
-        public void ConvertBlueprints(BlueprintManager mgr)
+        public void SetEntityUnitData(Dictionary<string, string> data)
+        {
+            EntityUnitDict = data;
+        }
+
+        public SerializedDialog ConvertBlueprints(BlueprintManager mgr)
         {
             var bpTypeLookup = mgr.BlueprintDict.Values.ToLookup(x => x.GetType());
 
@@ -118,7 +123,7 @@ namespace Kingmaker
                 }
             }
 
-            db.SerializeAsync(@"..\..\..\..\data\database.json").GetAwaiter().GetResult();
+            return db;
         }
 
         private void SetDialogNode(BaseNode node, NodeRef<DialogNode> dialogRef, NodeRefBase prevNodeRef)
@@ -371,7 +376,24 @@ namespace Kingmaker
                 }
                 else if (bp.Speaker is UnitFromSpawner unitFromSpawner)
                 {
-                    speakerName = unitFromSpawner.Spawner.EntityNameInEditor;
+                    if (EntityUnitDict.TryGetValue(unitFromSpawner.Spawner.UniqueId, out string unitGuid))
+                    {
+                        unitGuid = EntityUnitDict[unitFromSpawner.Spawner.UniqueId];
+                        BlueprintUnit unit = (BlueprintUnit)BlueprintManager.Instance.GetBlueprint(unitGuid);
+                        speakerName = unit.LocalizedName.String.Value;
+                    }
+                    else
+                    {
+                        speakerName = unitFromSpawner.Spawner.EntityNameInEditor;
+                    }
+                }
+                else if (bp.Speaker is FirstUnitFromSummonPool firstUnitFromSummonPool)
+                {
+                    speakerName = firstUnitFromSummonPool.m_SummonPool.Name;
+                }
+                else if (bp.Speaker is DialogCurrentSpeaker)
+                {
+                    speakerName = null;
                 }
                 else
                 {
@@ -383,8 +405,7 @@ namespace Kingmaker
                 return;
             }
 
-            Guid dialogGuid = (bp.Dialog as ElementsSystem.Dialog)?.m_Value.Guid ?? bp.m_Dialog.Guid;
-
+            Guid dialogGuid = bp.m_Dialog.Guid;
             if (dialogGuid == Guid.Empty)
                 return;
 

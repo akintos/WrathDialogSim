@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -6,9 +6,7 @@
   </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Lib\AssetTools.NET\AssetTools.NET\AssetsTools.NET.csproj">
-            <SetTargetFramework>TargetFramework=netstandard2.0</SetTargetFramework>
-        </ProjectReference>
+        <ProjectReference Include="..\Lib\AssetTools.NET\AssetTools.NET\AssetsTools.NET.csproj" AdditionalProperties="TargetFramework=netstandard2.0"/>
     </ItemGroup>
 
 </Project>

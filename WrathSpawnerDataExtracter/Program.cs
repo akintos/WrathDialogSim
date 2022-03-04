@@ -11,7 +11,7 @@ namespace WrathSpawnerDataExtracter
         static void Main(string[] args)
         {
             string bundlesDir = @"D:\Steam\steamapps\common\Pathfinder Second Adventure\Bundles";
-            string outputPath = "spawnerdata.txt";
+            string outputPath = "../../../../data/spawnerdata.txt";
 
             SpawnerDataExtracter extracter = new(bundlesDir);
 

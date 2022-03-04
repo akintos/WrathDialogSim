@@ -19,6 +19,8 @@ namespace Kingmaker
         {
             const string blueprintZipPath = @"C:\Users\akintos\Downloads\Blueprints1.1.6e.zip";
 
+            var spawnerUnitData = LoadSpawnerUnitData(@"..\..\..\..\data\spawnerdata.txt");
+
             var mgr = BlueprintManager.Instance;
 
             Console.WriteLine($"Loading blueprint zip file...");
@@ -28,7 +30,11 @@ namespace Kingmaker
             Console.WriteLine($"Loaded blueprints : " + mgr.BlueprintDict.Count);
 
             var converter = new KingmakerBlueprintConverter();
-            converter.ConvertBlueprints(mgr);
+            converter.SetEntityUnitData(spawnerUnitData);
+
+            var db = converter.ConvertBlueprints(mgr);
+
+            db.SerializeAsync(@"..\..\..\..\data\database.json").GetAwaiter().GetResult();
         }
 
         public static bool BlueprintFilter(string fullPath)
@@ -44,28 +50,24 @@ namespace Kingmaker
                 dirName != "Kingmaker.DialogSystem.Blueprints.BlueprintMythicsSettings";
         }
 
-        public static void TarBlueprints()
+        private static Dictionary<string, string> LoadSpawnerUnitData(string path)
         {
-            var mgr = BlueprintManager.Instance;
+            Dictionary<string, string> result = new();
 
-            mgr.LoadBlueprintDirectory(@"C:\Users\akintos\localization\wrath\DialogSystem");
-
-            Console.WriteLine(mgr);
-
-            foreach (var item in mgr.MissingClassNames)
+            using (StreamReader sr = new StreamReader(path))
             {
-                Console.WriteLine(item);
+                string line;
+                while ((line = sr.ReadLine()) != null)
+                {
+                    var parts = line.Split(':', StringSplitOptions.TrimEntries);
+                    if (parts.Length == 2 && !string.IsNullOrWhiteSpace(parts[1]))
+                    {
+                        result[parts[0]] = parts[1];
+                    }
+                }
             }
 
-            using (var writer = new StreamWriter("Dialog.json"))
-            using (var jsonWriter = new JsonTextWriter(writer))
-            {
-                var serializer = JsonSerializer.CreateDefault();
-                serializer.Formatting = Formatting.Indented;
-                serializer.TypeNameAssemblyFormatHandling = TypeNameAssemblyFormatHandling.Simple;
-                serializer.TypeNameHandling = TypeNameHandling.All;
-                serializer.Serialize(jsonWriter, mgr.BlueprintDict);
-            }
+            return result;
         }
     }
 }
