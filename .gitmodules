@@ -1,0 +1,4 @@
+[submodule "Lib/AssetTools.NET"]
+	path = Lib/AssetTools.NET
+	url = https://github.com/nesrak1/AssetsTools.NET
+	branch = upd21-with-inst

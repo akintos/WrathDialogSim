@@ -1,0 +1,59 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WrathBlueprintParser", "WrathBlueprintParser\WrathBlueprintParser.csproj", "{C666C65C-FF9C-4C13-8588-3A578AC16ECE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WrathDialogLib", "WrathDialogLib\WrathDialogLib.csproj", "{27C9F1F0-5B62-4F7F-8EED-4EA56323C91D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WrathDialogSim", "WrathDialogSim\WrathDialogSim.csproj", "{4D8AC018-3F01-408C-9257-3110374D96CA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{DF084BC0-D95B-4C2B-9AB2-0E37355A6B84}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssetsTools.NET", "Lib\AssetTools.NET\AssetTools.NET\AssetsTools.NET.csproj", "{5EC5039B-5DDF-485D-A100-C128DF13A4A3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WrathBlueprintTypeGuidExrtractor", "WrathBlueprintTypeGuidExrtractor\WrathBlueprintTypeGuidExrtractor.csproj", "{DE8D7F20-FF56-495A-8E09-5A91F75F24A3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{12837337-F137-46BA-9FC9-CF2A85A26085}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C666C65C-FF9C-4C13-8588-3A578AC16ECE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C666C65C-FF9C-4C13-8588-3A578AC16ECE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C666C65C-FF9C-4C13-8588-3A578AC16ECE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C666C65C-FF9C-4C13-8588-3A578AC16ECE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27C9F1F0-5B62-4F7F-8EED-4EA56323C91D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27C9F1F0-5B62-4F7F-8EED-4EA56323C91D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27C9F1F0-5B62-4F7F-8EED-4EA56323C91D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27C9F1F0-5B62-4F7F-8EED-4EA56323C91D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D8AC018-3F01-408C-9257-3110374D96CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D8AC018-3F01-408C-9257-3110374D96CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D8AC018-3F01-408C-9257-3110374D96CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D8AC018-3F01-408C-9257-3110374D96CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5EC5039B-5DDF-485D-A100-C128DF13A4A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5EC5039B-5DDF-485D-A100-C128DF13A4A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5EC5039B-5DDF-485D-A100-C128DF13A4A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5EC5039B-5DDF-485D-A100-C128DF13A4A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE8D7F20-FF56-495A-8E09-5A91F75F24A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE8D7F20-FF56-495A-8E09-5A91F75F24A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE8D7F20-FF56-495A-8E09-5A91F75F24A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE8D7F20-FF56-495A-8E09-5A91F75F24A3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5EC5039B-5DDF-485D-A100-C128DF13A4A3} = {DF084BC0-D95B-4C2B-9AB2-0E37355A6B84}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {24016FE3-45F7-4DBB-B606-51B914D0E407}
+	EndGlobalSection
+EndGlobal

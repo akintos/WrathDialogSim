@@ -1,0 +1,10 @@
+﻿global using System;
+global using System.Collections.Generic;
+global using System.IO;
+global using System.Linq;
+global using System.Text;
+global using Kingmaker;
+global using Kingmaker.Blueprints;
+global using Kingmaker.ElementsSystem;
+global using Kingmaker.Enums;
+global using Kingmaker.Localization;
